@@ -1,16 +1,15 @@
 /**
- * @fileoverview 
- * Entry point server HTTP
+ * @fileoverview Entry point server HTTP
  */
 const http = require('http');
-const { calculateImpact, getWasteTypes } = require('./features/wasteCalculator');
+const { calculateImpact, getWasteTypes }  = require('./features/wasteCalculator');
 const { fetchEnvironmentalNews }          = require('./features/newsService');
-const { accumulateStats, getStats } = require('./features/impactStats');
+const { accumulateStats, getStats }       = require('./features/impactStats');
 
 const sendJSON = (res, statusCode, payload) => {
     res.writeHead(statusCode, {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*', // Nanti bisa diganti sama domain nyang bener
+        'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
         'Access-Control-Allow-Headers': 'Content-Type'
     });
@@ -22,20 +21,19 @@ const parseJSONBody = (req) => {
         let body = '';
         req.on('data', chunk => {
             body += chunk.toString();
-            // Proteksi memory leak / payload berlebih
             if (body.length > 1e6) {
                 req.connection.destroy();
-                reject(new Error("Payload terlalu besar"));
+                reject(new Error("CLIENT_ERROR: Payload terlalu besar"));
             }
         });
         req.on('end', () => {
             try {
                 resolve(body ? JSON.parse(body) : {});
             } catch (error) {
-                reject(new Error("Format JSON tidak valid"));
+                reject(new Error("CLIENT_ERROR: Format JSON tidak valid"));
             }
         });
-        req.on('error', (err) => reject(err));
+        req.on('error', (err) => reject(new Error("SERVER_ERROR: Gagal membaca request")));
     });
 };
 
@@ -51,12 +49,10 @@ const server = http.createServer(async (req, res) => {
 
     const urlPath = req.url.split('?')[0];
 
-    // GET /api/waste/types 
     if (urlPath === '/api/waste/types' && req.method === 'GET') {
         return sendJSON(res, 200, { success: true, data: getWasteTypes() });
     }
 
-    // POST /api/waste/calculations 
     else if (urlPath === '/api/waste/calculations' && req.method === 'POST') {
         try {
             const body = await parseJSONBody(req);
@@ -73,22 +69,31 @@ const server = http.createServer(async (req, res) => {
             return sendJSON(res, 200, { success: true, data: result });
 
         } catch (error) {
-            return sendJSON(res, 400, { success: false, message: error.message });
+            const errorMsg = error.message;
+            
+            // Logika Status Code Berdasarkan Tipe Error
+            if (errorMsg.includes("CLIENT_ERROR")) {
+                return sendJSON(res, 400, { success: false, message: errorMsg.replace("CLIENT_ERROR: ", "") });
+            } else if (errorMsg.includes("UPSTREAM_ERROR")) {
+                return sendJSON(res, 502, { success: false, message: "Bad Gateway: Layanan AI tidak tersedia atau konfigurasi salah." });
+            } else if (errorMsg.includes("SERVER_CONFIG_ERROR")) {
+                return sendJSON(res, 500, { success: false, message: "Internal Server Error: Konfigurasi server tidak lengkap." });
+            } else {
+                return sendJSON(res, 500, { success: false, message: "Internal Server Error: Terjadi kesalahan yang tidak terduga." });
+            }
         }
     } 
     
-    // GET /api/news 
     else if (urlPath === '/api/news' && req.method === 'GET') {
         try {
             const news = await fetchEnvironmentalNews();
             return sendJSON(res, 200, { success: true, data: news });
         } catch (error) {
-            return sendJSON(res, 500, { success: false, message: "Server error saat mengambil berita" });
+            return sendJSON(res, 502, { success: false, message: "Server error saat mengambil berita" });
         }
     } 
 
-    // GET /api/stats 
-    if (urlPath === '/api/stats' && req.method === 'GET') {
+    else if (urlPath === '/api/stats' && req.method === 'GET') {
         return sendJSON(res, 200, { success: true, data: getStats() });
     }
     
@@ -97,8 +102,7 @@ const server = http.createServer(async (req, res) => {
     }
 });
 
-// kalau mau nyalain backend masuk ke folder backend n jalanin node server.js aja (di terminal)
 const PORT = 3000; 
 server.listen(PORT, () => {
-    console.log(`Running on http://localhost:${PORT}`);
+    console.log(`Server is running robustly on http://localhost:${PORT}`);
 });
