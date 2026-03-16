@@ -1,10 +1,30 @@
-/**
- * @fileoverview Entry point server HTTP
- */
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
 const { calculateImpact, getWasteTypes }  = require('./features/wasteCalculator');
 const { fetchEnvironmentalNews }          = require('./features/newsService');
 const { accumulateStats, getStats }       = require('./features/impactStats');
+const { getBankSampah, getUniqueWilayah, getUniqueKecamatan } = require('./features/bankSampah');
+
+try {
+    const envPath = path.join(__dirname, '.env');
+    if (fs.existsSync(envPath)) {
+        const envContent = fs.readFileSync(envPath, 'utf8');
+        envContent.split(/\r?\n/).forEach(line => {
+            const trimmedLine = line.trim();
+            if (trimmedLine && !trimmedLine.startsWith('#')) {
+                const [key, ...valueParts] = trimmedLine.split('=');
+                const value = valueParts.join('=').trim().replace(/^['"]|['"]$/g, '');
+                process.env[key.trim()] = value;
+            }
+        });
+        console.log('Environment variables loaded manually');
+    } else {
+        console.log('File .env tidak ditemukan');
+    }
+} catch (err) {
+    console.error('Gagal membaca .env:', err.message);
+}
 
 const sendJSON = (res, statusCode, payload) => {
     res.writeHead(statusCode, {
@@ -21,19 +41,14 @@ const parseJSONBody = (req) => {
         let body = '';
         req.on('data', chunk => {
             body += chunk.toString();
-            if (body.length > 1e6) {
-                req.connection.destroy();
-                reject(new Error("CLIENT_ERROR: Payload terlalu besar"));
-            }
         });
         req.on('end', () => {
             try {
                 resolve(body ? JSON.parse(body) : {});
             } catch (error) {
-                reject(new Error("CLIENT_ERROR: Format JSON tidak valid"));
+                reject(new Error("CLIENT_ERROR: JSON tidak valid"));
             }
         });
-        req.on('error', (err) => reject(new Error("SERVER_ERROR: Gagal membaca request")));
     });
 };
 
@@ -49,60 +64,59 @@ const server = http.createServer(async (req, res) => {
 
     const urlPath = req.url.split('?')[0];
 
-    if (urlPath === '/api/waste/types' && req.method === 'GET') {
-        return sendJSON(res, 200, { success: true, data: getWasteTypes() });
-    }
-
-    else if (urlPath === '/api/waste/calculations' && req.method === 'POST') {
+    if (urlPath === '/api/waste/calculations' && req.method === 'POST') {
         try {
             const body = await parseJSONBody(req);
-            
-            if (!body.items || !Array.isArray(body.items) || body.items.length === 0) {
-                return sendJSON(res, 400, {
-                    success: false,
-                    message: "Format request salah. 'items' harus berupa array yang tidak kosong."
-                });
-            }
-
             const result = await calculateImpact(body.items);
-            accumulateStats(result); 
             return sendJSON(res, 200, { success: true, data: result });
-
         } catch (error) {
-            const errorMsg = error.message;
-            
-            // Logika Status Code Berdasarkan Tipe Error
-            if (errorMsg.includes("CLIENT_ERROR")) {
-                return sendJSON(res, 400, { success: false, message: errorMsg.replace("CLIENT_ERROR: ", "") });
-            } else if (errorMsg.includes("UPSTREAM_ERROR")) {
-                return sendJSON(res, 502, { success: false, message: "Bad Gateway: Layanan AI tidak tersedia atau konfigurasi salah." });
-            } else if (errorMsg.includes("SERVER_CONFIG_ERROR")) {
-                return sendJSON(res, 500, { success: false, message: "Internal Server Error: Konfigurasi server tidak lengkap." });
-            } else {
-                return sendJSON(res, 500, { success: false, message: "Internal Server Error: Terjadi kesalahan yang tidak terduga." });
+            console.error('[Server Error]', error.message);
+            if (error.message.includes("CLIENT_ERROR")) {
+                return sendJSON(res, 400, { success: false, message: error.message });
             }
+            return sendJSON(res, 502, { 
+                success: false, 
+                message: "Gemini AI Error", 
+                detail: error.message 
+            });
         }
     } 
-    
-    else if (urlPath === '/api/news' && req.method === 'GET') {
+    else if (urlPath === '/api/news') {
         try {
             const news = await fetchEnvironmentalNews();
             return sendJSON(res, 200, { success: true, data: news });
-        } catch (error) {
-            return sendJSON(res, 502, { success: false, message: "Server error saat mengambil berita" });
-        }
-    } 
-
-    else if (urlPath === '/api/stats' && req.method === 'GET') {
-        return sendJSON(res, 200, { success: true, data: getStats() });
+        } catch (e) { return sendJSON(res, 502, { success: false }); }
     }
-    
+
+    if (urlPath === '/api/wilayah' && req.method === 'GET') {
+        return sendJSON(res, 200, { success: true, data: getUniqueWilayah() });
+    }
+
+    else if (urlPath === '/api/kecamatan' && req.method === 'GET') {
+        const urlParams = new URL(req.url, `http://${req.headers.host}`).searchParams;
+        const wilayah = urlParams.get('wilayah');
+        return sendJSON(res, 200, { success: true, data: getUniqueKecamatan(wilayah) });
+    }
+
+    else if (urlPath === '/api/banksampah' && req.method === 'GET') {
+        const urlParams = new URL(req.url, `http://${req.headers.host}`).searchParams;
+        const wilayah = urlParams.get('wilayah');
+        const kecamatan = urlParams.get('kecamatan');
+        
+        let results = getBankSampah(wilayah);
+        if (kecamatan) {
+            results = results.filter(item => 
+                item.kecamatan.toLowerCase().includes(kecamatan.toLowerCase())
+            );
+        }
+        return sendJSON(res, 200, { success: true, data: results });
+    }
     else {
-        return sendJSON(res, 404, { success: false, message: "Endpoint tidak ditemukan" });
+        sendJSON(res, 404, { message: "Not Found" });
     }
 });
 
 const PORT = 3000; 
 server.listen(PORT, () => {
-    console.log(`Server is running robustly on http://localhost:${PORT}`);
+    console.log(`Running on http://localhost:${PORT}`);
 });

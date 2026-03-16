@@ -9,14 +9,19 @@
 </head>
 <body>
     <!-- Navbar -->
-    <header class="navbar">
+    <header class="navbar" style="position: sticky; top: 0; z-index: 1030;">
         <div class="logo">SimSam</div>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Tentang</a>
-            <a href="#">Fitur</a>
+        <button class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav id="navMenu">
+            <a href="index.html">Home</a>
+            <a href="index.html#fitur">Fitur</a>
+            <a href="calculator.html">Kalkulator</a>
             <a href="news.html">Berita</a>
-            <a href="#">Kontak</a>
+            <a href="index.html#kontak">Kontak</a>
         </nav>
     </header>
     <!-- Hero Section -->
@@ -64,5 +69,6 @@
         <p>© 2026 SimSam | Sistem Informasi Manajemen Sampah</p>
     </footer>
 
+    <script src="main.js"></script>
 </body>
 </html>
