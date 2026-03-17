@@ -3,7 +3,7 @@ const path = require('path');
 
 let bankSampahCache = [];
 
-// loas dataset
+// load dataset
 const initBankSampahData = () => {
     try {
         const csvPath = path.join(__dirname, '../data/BankSampah.csv');
@@ -23,9 +23,9 @@ const initBankSampahData = () => {
             return obj;
         }).filter(item => item !== null);
 
-        console.log(`📦 Database Ready: ${bankSampahCache.length} data bank sampah dimuat.`);
+        console.log(`Database Ready: ${bankSampahCache.length} data bank sampah dimuat.`);
     } catch (err) {
-        console.error('❌ Error loading CSV:', err.message);
+        console.error('Error loading CSV:', err.message);
     }
 };
 

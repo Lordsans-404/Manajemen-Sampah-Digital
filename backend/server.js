@@ -5,6 +5,7 @@ const { calculateImpact, getWasteTypes }  = require('./features/wasteCalculator'
 const { fetchEnvironmentalNews }          = require('./features/newsService');
 const { accumulateStats, getStats }       = require('./features/impactStats');
 const { getBankSampah, getUniqueWilayah, getUniqueKecamatan } = require('./features/bankSampah');
+const { getEduContent } = require('./features/eduService');
 
 try {
     const envPath = path.join(__dirname, '.env');
@@ -86,6 +87,10 @@ const server = http.createServer(async (req, res) => {
             const news = await fetchEnvironmentalNews();
             return sendJSON(res, 200, { success: true, data: news });
         } catch (e) { return sendJSON(res, 502, { success: false }); }
+    }
+
+    else if (urlPath === '/api/edu' && req.method === 'GET') {
+        return sendJSON(res, 200, { success: true, data: getEduContent() });
     }
 
     if (urlPath === '/api/wilayah' && req.method === 'GET') {

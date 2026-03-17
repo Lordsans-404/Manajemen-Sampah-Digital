@@ -1,0 +1,63 @@
+{
+  "wasteCategories": [
+    {
+      "id": "organik",
+      "name": "Sampah Organik",
+      "description": "Sampah yang berasal dari sisa makhluk hidup dan mudah terurai secara alami.",
+      "examples": ["Sisa makanan", "Daun kering", "Kulit buah", "Potongan sayuran"],
+      "management": "Dapat dijadikan kompos atau pakan ternak. Gunakan metode biopori atau komposter rumah tangga.",
+      "sdg_impact": "Mendukung SDG 12.3: Mengurangi pembuangan makanan sepanjang rantai produksi dan konsumsi."
+    },
+    {
+      "id": "anorganik",
+      "name": "Sampah Anorganik",
+      "description": "Sampah yang tidak mudah terurai dan biasanya berasal dari proses industri.",
+      "examples": ["Plastik", "Kertas", "Logam", "Kaca", "Karet"],
+      "management": "Pisahkan berdasarkan jenisnya. Setorkan ke Bank Sampah atau pusat daur ulang untuk diolah kembali.",
+      "sdg_impact": "Mendukung SDG 12.5: Mengurangi timbulan sampah secara substansial melalui pencegahan, pengurangan, daur ulang, dan penggunaan kembali."
+    },
+    {
+      "id": "b3",
+      "name": "Sampah B3 (Bahan Berbahaya dan Beracun)",
+      "description": "Sampah yang mengandung zat berbahaya yang dapat mencemari lingkungan dan membahayakan kesehatan.",
+      "examples": ["Baterai bekas", "Lampu neon", "Kabel listrik", "Kemasan deterjen", "Obat kadaluwarsa"],
+      "management": "Jangan dicampur dengan sampah lain. Serahkan ke tempat pengumpulan khusus limbah B3 atau titik jemput Dinas Lingkungan Hidup.",
+      "sdg_impact": "Mendukung SDG 12.4: Mencapai pengelolaan bahan kimia dan semua limbah secara ramah lingkungan."
+    }
+  ],
+  "dailyGuides": [
+    {
+      "title": "Prinsip 5R dalam Keseharian",
+      "steps": [
+        {
+          "principle": "Refuse (Menolak)",
+          "action": "Tolak penggunaan plastik sekali pakai seperti sedotan atau kantong plastik saat berbelanja."
+        },
+        {
+          "principle": "Reduce (Mengurangi)",
+          "action": "Bawa botol minum sendiri dan kurangi membeli barang dengan kemasan berlebih."
+        },
+        {
+          "principle": "Reuse (Gunakan Kembali)",
+          "action": "Gunakan kembali wadah yang masih layak atau berikan barang yang tidak terpakai kepada yang membutuhkan."
+        },
+        {
+          "principle": "Recycle (Daur Ulang)",
+          "action": "Pisahkan sampah anorganik agar dapat didaur ulang menjadi produk baru."
+        },
+        {
+          "principle": "Rot (Pembusukan)",
+          "action": "Olah sampah organik menjadi kompos untuk menyuburkan tanaman di rumah."
+        }
+      ]
+    },
+    {
+      "title": "Tips Belanja Ramah Lingkungan",
+      "tips": [
+        "Buat daftar belanja untuk menghindari pembelian impulsif (mencegah food waste).",
+        "Pilih produk dengan kemasan yang bisa didaur ulang atau tanpa kemasan.",
+        "Dukung produk lokal untuk mengurangi jejak karbon transportasi."
+      ]
+    }
+  ]
+}
