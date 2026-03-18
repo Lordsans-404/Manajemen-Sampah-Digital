@@ -363,3 +363,85 @@ document.addEventListener('DOMContentLoaded', () => {
     window.searchBankSampah = () => LocalModule.search();
     window.calculateSavings = () => LocalModule.calculateManual();
 });
+
+const API_URL = 'http://localhost:3000/api/edu'; 
+// sesuaikan dengan route backend kamu
+
+async function loadEduContent() {
+    try {
+        const response = await fetch('http://localhost:3000/api/edu');
+        const result = await response.json();
+
+        console.log('Response backend:', result);
+
+        if (!result.success) {
+            throw new Error('Response backend gagal');
+        }
+
+        renderWasteCategories(result.data.wasteCategories);
+        renderDailyGuides(result.data.dailyGuides);
+
+    } catch (error) {
+        console.error('Gagal memuat data edukasi:', error);
+    }
+}
+
+function renderWasteCategories(categories) {
+    const container = document.getElementById('wasteCategories');
+    container.innerHTML = '';
+
+    categories.forEach(cat => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        card.innerHTML = `
+            <h3>${cat.name}</h3>
+            <p>${cat.description}</p>
+
+            <strong>Contoh:</strong>
+            <ul>
+                ${cat.examples.map(ex => `<li>${ex}</li>`).join('')}
+            </ul>
+
+            <p><strong>Pengelolaan:</strong> ${cat.management}</p>
+            <p><strong>Dampak SDGs:</strong> ${cat.sdg_impact}</p>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+function renderDailyGuides(guides) {
+    const container = document.getElementById('dailyGuides');
+    container.innerHTML = '';
+
+    guides.forEach(guide => {
+        const div = document.createElement('div');
+        div.className = 'guide';
+
+        let content = `<h3>${guide.title}</h3>`;
+
+        if (guide.steps) {
+            guide.steps.forEach(step => {
+                content += `
+                    <div class="step">
+                        <strong>${step.principle}</strong>: ${step.action}
+                    </div>
+                `;
+            });
+        }
+
+        if (guide.tips) {
+            content += `<ul>`;
+            guide.tips.forEach(tip => {
+                content += `<li>${tip}</li>`;
+            });
+            content += `</ul>`;
+        }
+
+        div.innerHTML = content;
+        container.appendChild(div);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', loadEduContent);
