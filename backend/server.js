@@ -1,5 +1,6 @@
 const http = require('http');
-const fs = require('fs');
+// For deployment purposes!
+// const fs = require('fs');
 const path = require('path');
 const { calculateImpact, getWasteTypes }  = require('./features/wasteCalculator');
 const { fetchEnvironmentalNews }          = require('./features/newsService');
@@ -7,25 +8,26 @@ const { accumulateStats, getStats }       = require('./features/impactStats');
 const { getBankSampah, getUniqueWilayah, getUniqueKecamatan } = require('./features/bankSampah');
 const { getEduContent } = require('./features/eduService');
 
-try {
-    const envPath = path.join(__dirname, '.env');
-    if (fs.existsSync(envPath)) {
-        const envContent = fs.readFileSync(envPath, 'utf8');
-        envContent.split(/\r?\n/).forEach(line => {
-            const trimmedLine = line.trim();
-            if (trimmedLine && !trimmedLine.startsWith('#')) {
-                const [key, ...valueParts] = trimmedLine.split('=');
-                const value = valueParts.join('=').trim().replace(/^['"]|['"]$/g, '');
-                process.env[key.trim()] = value;
-            }
-        });
-        console.log('Environment variables loaded manually');
-    } else {
-        console.log('File .env tidak ditemukan');
-    }
-} catch (err) {
-    console.error('Gagal membaca .env:', err.message);
-}
+// For deployment purposes!
+// try {
+//     const envPath = path.join(__dirname, '.env');
+//     if (fs.existsSync(envPath)) {
+//         const envContent = fs.readFileSync(envPath, 'utf8');
+//         envContent.split(/\r?\n/).forEach(line => {
+//             const trimmedLine = line.trim();
+//             if (trimmedLine && !trimmedLine.startsWith('#')) {
+//                 const [key, ...valueParts] = trimmedLine.split('=');
+//                 const value = valueParts.join('=').trim().replace(/^['"]|['"]$/g, '');
+//                 process.env[key.trim()] = value;
+//             }
+//         });
+//         console.log('Environment variables loaded manually');
+//     } else {
+//         console.log('File .env tidak ditemukan');
+//     }
+// } catch (err) {
+//     console.error('Gagal membaca .env:', err.message);
+// }
 
 const sendJSON = (res, statusCode, payload) => {
     res.writeHead(statusCode, {
@@ -121,7 +123,8 @@ const server = http.createServer(async (req, res) => {
     }
 });
 
-const PORT = 3000; 
+// Deployment purpose (railway)
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-    console.log(`Running on http://localhost:${PORT}`);
+    console.log(`Running on port ${PORT}`);
 });
