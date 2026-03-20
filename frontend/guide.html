@@ -2,40 +2,74 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Panduan Pengelolaan Sampah</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="styles/guide.css">
-
+    <title>Panduan Pengelolaan Sampah | SimSam</title>
+    
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-</head>
-<body>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-    <header>
-        <h1>Panduan Pengelolaan Sampah</h1>
-        <p>Edukasi pengelolaan sampah berbasis kategori dan kebiasaan harian</p>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles/lp-style.css">
+    <link rel="stylesheet" href="styles/guide.css">
+</head>
+<body class="bg-light">
+
+    <!-- Navbar -->
+    <header class="navbar" style="position: sticky; top: 0; z-index: 1030;">
+        <div class="logo">SimSam</div>
+        <button class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav id="navMenu">
+            <a href="index.html">Home</a>
+            <a href="guide.html" class="active">Panduan</a>
+            <a href="calculator.html">Kalkulator</a>
+            <a href="news.html">Berita</a>
+            <a href="index.html#kontak">Kontak</a>
+        </nav>
     </header>
 
-    <main>
+    <main class="container my-5 pb-5">
+        <header class="mb-5 text-center py-4 bg-white rounded-4 shadow-sm border">
+            <h2 class="fw-bold">Panduan Pengelolaan Sampah</h2>
+            <p class="text-muted mb-0">Edukasi pengelolaan sampah berbasis kategori dan kebiasaan harian</p>
+        </header>
+
         <!-- KATEGORI SAMPAH -->
-        <section>
-            <h2>Kategori Sampah</h2>
-            <div id="wasteCategories" class="card-container"></div>
+        <section class="mb-5">
+            <h4 class="fw-bold mb-4 border-bottom pb-2 text-success">
+                <i class="fas fa-trash-alt me-2"></i> Kategori Sampah
+            </h4>
+            <div id="wasteCategories" class="row g-4">
+                <!-- Data dari Backend -->
+            </div>
         </section>
 
         <!-- PANDUAN HARIAN -->
-        <section>
-            <h2>Panduan Harian</h2>
-            <div id="dailyGuides" class="guide-container"></div>
+        <section class="mb-5">
+            <h4 class="fw-bold mb-4 border-bottom pb-2 text-success">
+                <i class="fas fa-calendar-check me-2"></i> Panduan Harian
+            </h4>
+            <div id="dailyGuides" class="row g-4">
+                <!-- Data dari Backend -->
+            </div>
         </section>
     </main>
 
-    <footer>
-        <p>© 2026 Sistem Manajemen Sampah</p>
+    <footer class="text-center py-4 border-top bg-white mt-auto">
+        <p class="text-muted mb-0">© 2026 SimSam - Sistem Manajemen Sampah</p>
     </footer>
 
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

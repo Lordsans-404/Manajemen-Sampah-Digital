@@ -364,83 +364,103 @@ document.addEventListener('DOMContentLoaded', () => {
     window.calculateSavings = () => LocalModule.calculateManual();
 });
 
-const API_URL = 'http://localhost:3000/api/edu'; 
-// sesuaikan dengan route backend kamu
-
 async function loadEduContent() {
+    const wasteContainer = document.getElementById('wasteCategories');
+    const dailyContainer = document.getElementById('dailyGuides');
+    
+    // Only fetch if one of the containers exists on the page
+    if (!wasteContainer && !dailyContainer) return;
+
     try {
-        const response = await fetch('http://localhost:3000/api/edu');
+        const response = await fetch(`${CONFIG.API_BASE_URL}/edu`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        
         const result = await response.json();
 
-        console.log('Response backend:', result);
-
-        if (!result.success) {
-            throw new Error('Response backend gagal');
+        if (result.success) {
+            renderWasteCategories(result.data.wasteCategories);
+            renderDailyGuides(result.data.dailyGuides);
         }
-
-        renderWasteCategories(result.data.wasteCategories);
-        renderDailyGuides(result.data.dailyGuides);
-
     } catch (error) {
-        console.error('Gagal memuat data edukasi:', error);
+        console.error('[EduService] Gagal memuat data edukasi:', error);
     }
 }
 
 function renderWasteCategories(categories) {
     const container = document.getElementById('wasteCategories');
+    if (!container) return;
     container.innerHTML = '';
 
     categories.forEach(cat => {
-        const card = document.createElement('div');
-        card.className = 'card';
+        const col = document.createElement('div');
+        col.className = 'col-12 col-md-4';
 
-        card.innerHTML = `
-            <h3>${cat.name}</h3>
-            <p>${cat.description}</p>
+        col.innerHTML = `
+            <div class="card-guide shadow-sm h-100">
+                <span class="badge-category mb-3">Kategori</span>
+                <h3 class="fw-bold"><i class="fas fa-recycle"></i> ${cat.name}</h3>
+                <p class="text-secondary small mb-3">${cat.description}</p>
 
-            <strong>Contoh:</strong>
-            <ul>
-                ${cat.examples.map(ex => `<li>${ex}</li>`).join('')}
-            </ul>
+                <div class="mb-3">
+                    <strong class="d-block mb-1"><i class="fas fa-list-ul me-2 text-success"></i>Contoh:</strong>
+                    <ul class="small mb-0">
+                        ${cat.examples.map(ex => `<li>${ex}</li>`).join('')}
+                    </ul>
+                </div>
 
-            <p><strong>Pengelolaan:</strong> ${cat.management}</p>
-            <p><strong>Dampak SDGs:</strong> ${cat.sdg_impact}</p>
+                <div class="management-info">
+                    <strong class="small d-block text-success uppercase mb-1">Cara Pengelolaan:</strong>
+                    <p class="small mb-0 text-dark">${cat.management}</p>
+                </div>
+                
+                <div class="sdg-info border-top pt-2">
+                    <i class="fas fa-leaf me-1 text-success"></i> ${cat.sdg_impact}
+                </div>
+            </div>
         `;
 
-        container.appendChild(card);
+        container.appendChild(col);
     });
 }
 
 function renderDailyGuides(guides) {
     const container = document.getElementById('dailyGuides');
+    if (!container) return;
     container.innerHTML = '';
 
     guides.forEach(guide => {
-        const div = document.createElement('div');
-        div.className = 'guide';
+        const col = document.createElement('div');
+        col.className = 'col-12 col-md-6';
 
-        let content = `<h3>${guide.title}</h3>`;
+        let content = `
+            <div class="card-guide shadow-sm h-100">
+                <h3 class="fw-bold border-bottom pb-2 mb-3"><i class="fas fa-lightbulb"></i> ${guide.title}</h3>
+        `;
 
         if (guide.steps) {
+            content += `<div class="steps-container">`;
             guide.steps.forEach(step => {
                 content += `
-                    <div class="step">
-                        <strong>${step.principle}</strong>: ${step.action}
+                    <div class="step-item">
+                        <strong>${step.principle}</strong>
+                        <span>${step.action}</span>
                     </div>
                 `;
             });
+            content += `</div>`;
         }
 
         if (guide.tips) {
-            content += `<ul>`;
+            content += `<ul class="tip-list mt-3">`;
             guide.tips.forEach(tip => {
                 content += `<li>${tip}</li>`;
             });
             content += `</ul>`;
         }
 
-        div.innerHTML = content;
-        container.appendChild(div);
+        content += `</div>`;
+        col.innerHTML = content;
+        container.appendChild(col);
     });
 }
 
