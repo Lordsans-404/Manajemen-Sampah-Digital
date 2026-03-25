@@ -1,6 +1,6 @@
 /**
- * @fileoverview Statistik dampak lingkungan kumulatif [opsional guys, ide fitur baru aja ini, kalau mau dipake gas kalau tak nak tak apa]
- * Nyimpen total dampak dari semua kalkulasi semua user ke file json 
+ * @fileoverview Statistik dampak lingkungan kumulatif
+ * Menyimpan total dampak dari semua kalkulasi ke file JSON
  */
 
 const fs   = require('fs');
@@ -35,17 +35,19 @@ const writeStats = (data) => {
 };
 
 /**
- * Akumulasi hasil kalkulasi yg baru ke total/ke jsonnya
+ * Akumulasi hasil kalkulasi baru ke JSON
  */
 const accumulateStats = (calculationResult) => {
     const current = readStats();
     const { summary } = calculationResult;
 
+    // Memastikan data di-parse menjadi float karena .toFixed() mengembalikan string
+    // Menggunakan fallback (|| 0) untuk mencegah NaN jika struktur API berubah
     const updated = {
-        totalCO2Saved_Kg:       current.totalCO2Saved_Kg      + summary.totalEnvironmentalImpact.co2Saved_Kg,
-        totalEnergySaved_Kwh:   current.totalEnergySaved_Kwh  + summary.totalEnvironmentalImpact.energySaved_Kwh,
-        totalWaterSaved_Liters: current.totalWaterSaved_Liters + summary.totalEnvironmentalImpact.waterSaved_Liters,
-        totalFinancial_IDR:     current.totalFinancial_IDR     + summary.totalFinancial_IDR,
+        totalCO2Saved_Kg:       current.totalCO2Saved_Kg       + parseFloat(summary.totalImpacts?.co2 || 0),
+        totalEnergySaved_Kwh:   current.totalEnergySaved_Kwh   + parseFloat(summary.totalImpacts?.energy || 0),
+        totalWaterSaved_Liters: current.totalWaterSaved_Liters + parseFloat(summary.totalImpacts?.water || 0),
+        totalFinancial_IDR:     current.totalFinancial_IDR     + parseFloat(summary.totalMonthlyIncome || 0),
         totalCalculations:      current.totalCalculations      + 1,
         lastUpdated:            new Date().toISOString()
     };
@@ -54,17 +56,6 @@ const accumulateStats = (calculationResult) => {
     return updated;
 };
 
-const buildNarrative = (stats) => {
-    const trees   = (stats.totalCO2Saved_Kg   * CONVERSION.co2ToTrees  ).toFixed(1);
-    const km      = (stats.totalCO2Saved_Kg   * CONVERSION.co2ToKm     ).toFixed(1);
-    const bottles = (stats.totalWaterSaved_Liters * CONVERSION.waterToBottle).toFixed(0);
-
-    return `Bersama, kita telah mencegah emisi setara ${trees} pohon ditanam, atau menghemat ${km} km perjalanan mobil, dan ${bottles} botol air minum.`;
-};
-
-/**
- * buat endpoint getnya
- */
 const getStats = () => {
     const stats = readStats();
 
@@ -74,8 +65,7 @@ const getStats = () => {
             treesEquivalent:   Number((stats.totalCO2Saved_Kg      * CONVERSION.co2ToTrees  ).toFixed(1)),
             kmEquivalent:      Number((stats.totalCO2Saved_Kg      * CONVERSION.co2ToKm     ).toFixed(1)),
             bottlesEquivalent: Number((stats.totalWaterSaved_Liters * CONVERSION.waterToBottle).toFixed(0))
-        },
-        narrative: buildNarrative(stats)
+        }
     };
 };
 

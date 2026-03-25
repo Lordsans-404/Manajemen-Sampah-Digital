@@ -5,59 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Berita & AI Kalkulator | SimSam</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     
-    <link rel="stylesheet" href="styles/lp-style.css"> 
+    <link rel="stylesheet" href="styles/main.css"> 
     <link rel="stylesheet" href="styles/news.css">
 </head>
-<body class="bg-light">
+<body class="d-flex flex-column min-vh-100">
 
-    <header class="navbar" style="position: sticky; top: 0; z-index: 1030;">
-        <div class="logo">SimSam</div>
-        <button class="menu-toggle" id="menuToggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <nav id="navMenu">
-            <a href="index.html">Home</a>
-            <a href="guide.html">Panduan</a>
-            <a href="calculator.html">Kalkulator</a>
-            <a href="news.html">Berita</a>
-        </nav>
-    </header>
-
-    <main class="container my-5 mb-5 pb-5">
-        
-        <h3 class="fw-bold mb-4 border-bottom pb-2">Berita Lingkungan Terkini</h3>
-        
-        <div id="loading-state" class="text-center py-5 my-5">
-            <div class="spinner-border text-success" style="width: 3rem; height: 3rem;" role="status">
-                <span class="visually-hidden">Memuat data...</span>
-            </div>
-            <p class="mt-4 text-muted fw-medium">Menyusun berita terbaru untukmu...</p>
-        </div>
-
-        <div id="error-state" class="alert alert-danger d-none rounded-4 border-0 shadow-sm p-4 text-center" role="alert">
-            <h5 class="fw-bold mb-2">Gagal Memuat Berita</h5>
-            <p class="mb-0">Koneksi ke server terputus. Silakan coba beberapa saat lagi.</p>
-        </div>
-
-        <div id="news-container" class="row g-4 d-none">
-            </div>
-
-        <nav aria-label="Navigasi berita" class="mt-5 pt-3 d-none" id="pagination-wrapper">
-            <ul class="pagination justify-content-center border-0" id="pagination-container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-white border-bottom shadow-sm py-3">
+        <div class="container-xl px-4">
+            <a class="navbar-brand fw-bold fs-4 brand-text" href="index.html">SimSam</a>
+            
+            <button class="navbar-toggler border-0 shadow-none px-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars fs-3 text-dark"></i>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav gap-lg-4 align-items-lg-center mt-4 mt-lg-0 text-center text-lg-start">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="guide.html">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="calculator.html">Calculator</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom active" href="news.html">News</a>
+                    </li>
                 </ul>
-        </nav>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-xl px-4 flex-grow-1" style="margin-top: 100px;">
+        <div class="py-4">
+            <h3 class="fw-bold mb-4 border-bottom pb-2">Berita Lingkungan Terkini</h3>
+            
+            <div id="loading-state" class="text-center py-5 my-5">
+                <div class="spinner-border text-success" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden">Memuat data...</span>
+                </div>
+                <p class="mt-4 text-muted fw-medium">Menyusun berita terbaru untukmu...</p>
+            </div>
+
+            <div id="error-state" class="alert alert-danger d-none rounded-4 border-0 shadow-sm p-4 text-center" role="alert">
+                <h5 class="fw-bold mb-2">Gagal Memuat Berita</h5>
+                <p class="mb-0">Koneksi ke server terputus. Silakan coba beberapa saat lagi.</p>
+            </div>
+
+            <div id="news-container" class="row g-4 d-none"></div>
+
+            <nav aria-label="Navigasi berita" class="mt-5 pt-3 d-none" id="pagination-wrapper">
+                <ul class="pagination justify-content-center border-0" id="pagination-container"></ul>
+            </nav>
+        </div>
     </main>
 
-    <footer>
-        <p>© 2026 SimSam | Sistem Informasi Manajemen Sampah</p>
+    <footer class="bg-white border-top py-5 mt-5">
+            <div class="text-center">
+                <span class="text-muted small">© 2026 SimSam Group 2. All rights reserved.</span>
+            </div>
+        </div>
     </footer>
 
-    <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/news.js"></script>
 </body>
 </html>

@@ -54,9 +54,18 @@
     {
       "title": "Tips Belanja Ramah Lingkungan",
       "tips": [
-        "Buat daftar belanja untuk menghindari pembelian impulsif (mencegah food waste).",
-        "Pilih produk dengan kemasan yang bisa didaur ulang atau tanpa kemasan.",
-        "Dukung produk lokal untuk mengurangi jejak karbon transportasi."
+        {
+          "title": "Buat Shopping List",
+          "description": "Hindari pembelian impulsif untuk mencegah penumpukan food waste."
+        },
+        {
+          "title": "Minimal Packaging",
+          "description": "Pilih produk dengan kemasan yang bisa didaur ulang atau tanpa kemasan."
+        },
+        {
+          "title": "Local Products",
+          "description": "Dukung produk lokal untuk mengurangi emisi jejak karbon transportasi."
+        }
       ]
     }
   ]

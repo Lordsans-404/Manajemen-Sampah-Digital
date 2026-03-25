@@ -1,0 +1,56 @@
+/**
+ * @fileoverview
+ * Main styles for Bootstrap-based layout.
+ */
+
+:root {
+    --green-primary: #1a7a4a;
+    --green-dark: #0f5c34;
+    --text-dark: #111827;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+}
+
+.brand-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--text-dark);
+    letter-spacing: -0.5px;
+}
+
+.nav-link-custom {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    color: #4b5563 !important;
+    transition: all 0.2s ease;
+}
+
+.nav-link-custom:hover, .nav-link-custom.active {
+    color: var(--green-primary) !important;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #6b7280;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: var(--green-primary);
+}
+
+/* Fix for mobile menu consistency */
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background: #fff;
+        padding-bottom: 2rem;
+    }
+}

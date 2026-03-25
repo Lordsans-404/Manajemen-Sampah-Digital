@@ -5,70 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panduan Pengelolaan Sampah | SimSam</title>
     
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles/lp-style.css">
+    <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/guide.css">
 </head>
-<body class="bg-light">
+<body class="d-flex flex-column min-vh-100">
 
-    <!-- Navbar -->
-    <header class="navbar" style="position: sticky; top: 0; z-index: 1030;">
-        <div class="logo">SimSam</div>
-        <button class="menu-toggle" id="menuToggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <nav id="navMenu">
-            <a href="index.html">Home</a>
-            <a href="guide.html" class="active">Panduan</a>
-            <a href="calculator.html">Kalkulator</a>
-            <a href="news.html">Berita</a>
-        </nav>
-    </header>
+    <nav class="navbar navbar-expand-lg fixed-top bg-white border-bottom shadow-sm py-3">
+        <div class="container-xl px-4">
+            <a class="navbar-brand fw-bold fs-4 brand-text" href="index.html">SimSam</a>
+            
+            <button class="navbar-toggler border-0 shadow-none px-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars fs-3 text-dark"></i>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav gap-lg-4 align-items-lg-center mt-4 mt-lg-0 text-center text-lg-start">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom active" href="guide.html">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="calculator.html">Calculator</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="news.html">News</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <main class="container my-5 pb-5">
-        <header class="mb-5 text-center py-4 bg-white rounded-4 shadow-sm border">
-            <h2 class="fw-bold">Panduan Pengelolaan Sampah</h2>
-            <p class="text-muted mb-0">Edukasi pengelolaan sampah berbasis kategori dan kebiasaan harian</p>
-        </header>
-
-        <!-- KATEGORI SAMPAH -->
-        <section class="mb-5">
-            <h4 class="fw-bold mb-4 border-bottom pb-2 text-success">
-                <i class="fas fa-trash-alt me-2"></i> Kategori Sampah
-            </h4>
-            <div id="wasteCategories" class="row g-4">
-                <!-- Data dari Backend -->
+    <main class="container-xl px-4 flex-grow-1" style="margin-top: 100px;">
+        <section class="row align-items-center py-4 py-lg-5 mb-5">
+            <div class="col-lg-6 mb-5 mb-lg-0 pe-lg-5">
+                <span class="badge rounded-pill bg-success-subtle text-success fw-bold tracking-wider text-uppercase px-4 py-2 mb-4">Panduan Utama</span>
+                <h1 class="display-4 fw-bolder mb-4 text-dark headline-font" style="letter-spacing: -1px;">Panduan Pengelolaan Sampah</h1>
+                <p class="fs-5 text-muted body-font" style="line-height: 1.8;">
+                    Edukasi pengelolaan sampah berbasis kategori dan kebiasaan harian untuk mewujudkan gaya hidup regeneratif yang berkelanjutan.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <div class="rounded-4 overflow-hidden shadow-lg position-relative" style="height: 400px; background-color: #c1ecd4;">
+                    <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=800&auto=format&fit=crop" alt="Waste Management" class="w-100 h-100 object-fit-cover" onerror="this.style.display='none'">
+                    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(to top, rgba(15, 82, 56, 0.4), transparent);"></div>
+                </div>
             </div>
         </section>
 
-        <!-- PANDUAN HARIAN -->
-        <section class="mb-5">
-            <h4 class="fw-bold mb-4 border-bottom pb-2 text-success">
-                <i class="fas fa-calendar-check me-2"></i> Panduan Harian
-            </h4>
-            <div id="dailyGuides" class="row g-4">
-                <!-- Data dari Backend -->
+        <section class="py-5 px-4 px-md-5 mb-5 rounded-4" style="background-color: #f2f4f2;">
+            <div class="mb-5">
+                <h2 class="fw-bold mb-3 text-dark headline-font">Kategori Sampah</h2>
+                <div class="rounded-pill" style="width: 80px; height: 6px; background-color: #0f5238;"></div>
+            </div>
+            <div class="row g-4" id="wasteCategories">
+                </div>
+        </section>
+
+        <section class="py-5 mb-5">
+            <div class="row g-4">
+                <div class="col-lg-7" id="fiveRContainer"></div>
+                <div class="col-lg-5 d-flex flex-column gap-4" id="tipsContainer"></div>
             </div>
         </section>
     </main>
 
-    <footer class="text-center py-4 border-top bg-white mt-auto">
-        <p class="text-muted mb-0">© 2026 SimSam - Sistem Manajemen Sampah</p>
+     <footer class="bg-white border-top py-5 mt-5">
+            <div class="text-center">
+                <span class="text-muted small">© 2026 SimSam Group 2. All rights reserved.</span>
+            </div>
+        </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="main.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/guide.js"></script>
 </body>
 </html>

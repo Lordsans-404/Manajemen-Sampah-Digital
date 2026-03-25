@@ -1,114 +1,117 @@
 :root {
-    --ss-success: #198754;
-    --ss-dark: #212529;
-    --ss-light: #f8f9fa;
+    --bg-page: #f8faf8;
+    --bento-radius: 2rem;
+    --bento-radius-sm: 1rem;
+    --color-primary: #0f5238;
+    --color-primary-light: #b1f0ce;
+    --color-secondary: #006e1c;
 }
 
-.x-small { font-size: 0.75rem; }
-.hover-shadow:hover { 
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important; 
-    transform: translateY(-3px);
-}
-.transition-all { transition: all 0.3s ease; }
-
-#search {
-    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-    border-radius: 0 0 50px 50px;
+body.bg-page {
+    background-color: var(--bg-page);
 }
 
-.table-responsive {
-    scrollbar-width: thin;
-    scrollbar-color: var(--ss-success) transparent;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-    margin-bottom: 1rem;
-    border-radius: 0.5rem;
+.headline-font {
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-.table-responsive::-webkit-scrollbar {
-    height: 8px;
+.tracking-wider {
+    letter-spacing: 0.05em;
 }
 
-.table-responsive::-webkit-scrollbar-thumb {
-    background: var(--ss-success);
-    border-radius: 10px;
+.bento-badge {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    font-weight: 700;
 }
 
-.table td, .table th {
+.bento-card {
+    border-radius: var(--bento-radius);
+    padding: 2rem;
+    border: 1px solid rgba(0,0,0,0.03);
+}
+
+.bento-input {
+    background-color: #f2f4f2 !important;
+    border: 2px solid transparent !important;
+    border-radius: var(--bento-radius-sm) !important;
+    padding: 0 3rem 0 3.25rem !important;
+    font-size: 0.95rem !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 500 !important;
+    color: #374151 !important;
+    height: 56px !important; 
+    transition: all 0.2s ease;
+}
+
+.bento-input:focus {
+    background-color: #ffffff !important;
+    border-color: rgba(15, 82, 56, 0.2) !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+    outline: none;
+}
+
+select.bento-input {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 1.25rem center !important;
+    background-size: 16px 12px !important;
+}
+
+.bento-btn {
+    height: 56px !important; 
+    border-radius: var(--bento-radius-sm) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bento-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+.bento-map {
+    height: 450px;
+    border-radius: var(--bento-radius);
+    overflow: hidden;
+    border: 4px solid #fff;
+}
+
+#searchResults .table {
+    margin-bottom: 0;
+}
+#searchResults th {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #9ca3af;
+    font-weight: 700;
+    font-size: 0.8rem;
+    border-bottom: none;
+    background-color: #f8faf8;
+}
+#searchResults td {
+    padding: 1.25rem 1rem;
     vertical-align: middle;
+    border-bottom: 1px solid #f2f4f2;
 }
 
-.table td {
-    white-space: nowrap;
+.bank-result-anim {
+    animation: slideUpFade 0.4s ease forwards;
+    background: linear-gradient(135deg, var(--color-primary), #00301c) !important;
+    border: none !important;
 }
 
-.table td:nth-child(2) {
-    white-space: normal;
-    min-width: 250px;
-}
-
-@media (max-width: 768px) {
-    #search {
-        border-radius: 0 0 30px 30px;
-    }
-
-    #submit-calc-btn, 
-    button[onclick="calculateSavings()"] {
-        padding-top: 0.7rem !important;
-        padding-bottom: 0.7rem !important;
-        font-size: 0.7rem !important;
-        letter-spacing: 0.3px;
-        text-transform: none;
-        font-weight: 600;
-    }
-
-    .table td, .table th {
-        padding: 12px 10px !important;
-        font-size: 0.85rem;
-    }
-
-    .table td:nth-child(2) {
-        min-width: 200px;
-    }
-
-    .small-mobile-title {
-        font-size: 1.1rem !important;
-    }
-
-    .x-small-mobile {
-        font-size: 0.9rem !important;
-        display: block;
-    }
-
-    #calculator-result .row > div {
-        padding: 8px 4px !important;
-    }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+@keyframes slideUpFade {
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-#searchResults > div, .bank-result-anim {
-    animation: fadeIn 0.4s ease forwards;
-}
-
-.badge.bg-success {
-    background-color: var(--ss-success) !important;
-    font-size: 0.7rem;
-    letter-spacing: 0.5px;
-}
-
-.form-control:focus, .form-select:focus {
-    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.15) !important;
-    border-color: var(--ss-success) !important;
-}
-
-footer {
-    background-color: var(--ss-dark);
-    color: white;
-    text-align: center;
-    padding: 25px 10px;
-    margin-top: 50px;
+@media (max-width: 768px) {
+    .bento-card {
+        padding: 1.5rem;
+        border-radius: 1.5rem;
+    }
+    .bg-md-transparent {
+        background-color: transparent !important;
+    }
+    .rounded-md-0 {
+        border-radius: 0 !important;
+    }
 }

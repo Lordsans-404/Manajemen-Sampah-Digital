@@ -2,72 +2,224 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>SimSam | Sistem Manajemen Sampah</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles/lp-style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>SimSam | Sistem Manajemen Sampah</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/calcu.css"> <link rel="stylesheet" href="styles/lp-style.css">
 </head>
-<body>
-    <!-- Navbar -->
-    <header class="navbar" style="position: sticky; top: 0; z-index: 1030;">
-        <div class="logo">SimSam</div>
-        <button class="menu-toggle" id="menuToggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <nav id="navMenu">
-            <a href="index.html">Home</a>
-            <a href="guide.html">Panduan</a>
-            <a href="calculator.html">Kalkulator</a>
-            <a href="news.html">Berita</a>
-        </nav>
-    </header>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Kelola Sampah Lebih Mudah & Terstruktur</h1>
-            <p>
-                SimSam adalah sistem informasi manajemen sampah yang dirancang
-                untuk membantu proses pengelolaan sampah secara efektif,
-                transparan, dan ramah lingkungan demi masa depan yang lebih bersih.
-            </p>
-            <a href="guide.html" class="btn">Mulai Sekarang</a>
-        </div>
-    </section>
-    <!-- Fitur -->
-    <section class="features">
-        <h2>Mengapa Memilih SimSam?</h2>
-        <div class="feature-container">
-            <div class="feature-card">
-                <h3>📊 Data Terorganisir</h3>
-                <p>
-                    Semua data pengelolaan sampah tersimpan dengan rapi
-                    sehingga mudah diakses dan dikelola.
-                </p>
-            </div>
-            <div class="feature-card">
-                <h3>♻️ Ramah Lingkungan</h3>
-                <p>
-                    Mendukung pengelolaan sampah berkelanjutan
-                    untuk menjaga kebersihan dan kelestarian lingkungan.
-                </p>
-            </div>
-            <div class="feature-card">
-                <h3>⚙️ Mudah Digunakan</h3>
-                <p>
-                    Tampilan sederhana dan user-friendly
-                    sehingga dapat digunakan oleh semua kalangan.
-                </p>
-            </div>
-        </div>
-    </section>
+<body class="d-flex flex-column min-vh-100 bg-page">
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2026 SimSam | Sistem Informasi Manajemen Sampah</p>
+    <nav class="navbar navbar-expand-lg fixed-top bg-white border-bottom shadow-sm py-3">
+        <div class="container-xl px-4">
+            <a class="navbar-brand fw-bold fs-4 brand-text" href="index.html">SimSam</a>
+            <button class="navbar-toggler border-0 shadow-none px-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars fs-3 text-dark"></i>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav gap-lg-4 align-items-lg-center mt-4 mt-lg-0">
+                    <li class="nav-item"><a class="nav-link nav-link-custom active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-custom" href="guide.html">Education</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-custom" href="calculator.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-custom" href="news.html">News</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow-1" style="margin-top: 80px;">
+        
+        <section class="container-xl px-4 py-5 my-md-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 order-2 order-lg-1 fade-up">
+                    <span class="badge rounded-pill bento-badge px-3 py-2 mb-4 tracking-wider text-uppercase shadow-sm">Gerakan Hijau Indonesia</span>
+                    <h1 class="display-3 fw-black headline-font mb-4 text-dark" style="letter-spacing: -2px; line-height: 1.1;">
+                        Mulai Dari Diri Sendiri, <span class="text-success">Pilah Sampah</span> Sekarang
+                    </h1>
+                    <p class="fs-5 text-muted body-font mb-5" style="line-height: 1.8;">
+                        Langkah kecil Anda hari ini adalah warisan berharga untuk bumi di masa depan. Mari mulai memilah sampah dari rumah dengan cara yang cerdas dan efisien.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 mb-5">
+                        <a href="calculator.html" class="btn btn-success bento-btn rounded-pill px-4 py-3 fw-bold d-flex align-items-center gap-2 shadow-sm fs-5">
+                            Mulai Memilah <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="guide.html" class="btn btn-outline-success bento-btn rounded-pill px-4 py-3 fw-bold shadow-sm fs-5">
+                            Lihat Panduan
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 position-relative fade-up" style="animation-delay: 0.2s;">
+                    <div class="hero-glow"></div>
+                    <div class="rounded-4 overflow-hidden shadow-lg position-relative z-1 border border-white border-4" style="aspect-ratio: 4/3; background-color: #e8f5ed;">
+                      <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Eco Lifestyle">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-5" style="background-color: #f2f4f2;">
+            <div class="container-xl px-4 py-md-5">
+                <div class="text-center mb-5 fade-up">
+                    <h2 class="display-6 fw-bold text-dark headline-font mb-3">Kenapa Memilah Sampah Itu Penting?</h2>
+                    <div class="rounded-pill mx-auto mb-4" style="width: 80px; height: 6px; background-color: #198754;"></div>
+                    <p class="text-muted mx-auto fs-5" style="max-width: 700px;">Memilah sampah bukan hanya soal kebersihan, tapi tentang menjaga ekosistem tetap seimbang dan mengurangi beban tempat pembuangan akhir.</p>
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-md-4 fade-up" style="animation-delay: 0.1s;">
+                        <div class="bento-card bg-white h-100 shadow-sm lp-card">
+                            <i class="fas fa-leaf text-success fs-1 mb-4"></i>
+                            <h3 class="fs-4 fw-bold headline-font mb-3">Kurangi Polusi</h3>
+                            <p class="text-muted small mb-0 line-height-lg">Mencegah gas metana berlebih dari sampah organik yang tercampur dan mencemari tanah serta udara kita.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 fade-up" style="animation-delay: 0.2s;">
+                        <div class="bento-card bg-white h-100 shadow-sm lp-card">
+                            <i class="fas fa-recycle text-success fs-1 mb-4"></i>
+                            <h3 class="fs-4 fw-bold headline-font mb-3">Ekonomi Sirkular</h3>
+                            <p class="text-muted small mb-0 line-height-lg">Sampah anorganik yang terpilah dengan baik dapat didaur ulang menjadi produk baru bernilai tinggi.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 fade-up" style="animation-delay: 0.3s;">
+                        <div class="bento-card bg-white h-100 shadow-sm lp-card">
+                            <i class="fas fa-fish text-success fs-1 mb-4"></i>
+                            <h3 class="fs-4 fw-bold headline-font mb-3">Lindungi Satwa</h3>
+                            <p class="text-muted small mb-0 line-height-lg">Menjaga agar sampah plastik tidak berakhir di lautan dan membahayakan kehidupan biota laut yang berharga.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container-xl px-4 py-5 my-md-5">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-4 mb-5 fade-up">
+                <div>
+                    <h2 class="display-6 fw-bold text-dark headline-font mb-2">Panduan Kategori</h2>
+                    <p class="text-muted fs-5 mb-0">Kenali jenis sampahmu agar tidak salah dalam memilah.</p>
+                </div>
+                <a href="guide.html" class="text-success fw-bold text-decoration-none d-flex align-items-center gap-2 fs-5 hover-slide">
+                    Lihat Selengkapnya <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4 fade-up" style="animation-delay: 0.1s;">
+                    <div class="guide-preview-card border-organik bg-organik-light h-100 position-relative overflow-hidden">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <i class="fas fa-seedling fs-1 text-success"></i>
+                            <span class="badge bg-success rounded-pill tracking-wider text-uppercase">Kategori A</span>
+                        </div>
+                        <h3 class="fs-3 fw-bold text-success-dark headline-font mb-2">Organik</h3>
+                        <p class="text-success-muted small mb-4">Mudah terurai dan dapat dijadikan kompos.</p>
+                        <ul class="list-unstyled mb-0 small text-success-dark fw-medium d-flex flex-column gap-2">
+                            <li><i class="fas fa-check-circle me-2"></i> Sisa makanan & kulit buah</li>
+                            <li><i class="fas fa-check-circle me-2"></i> Daun & ranting pohon</li>
+                            <li><i class="fas fa-check-circle me-2"></i> Ampas kopi & teh</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 fade-up" style="animation-delay: 0.2s;">
+                    <div class="guide-preview-card border-anorganik bg-anorganik-light h-100 position-relative overflow-hidden">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <i class="fas fa-box-open fs-1 text-primary"></i>
+                            <span class="badge bg-primary rounded-pill tracking-wider text-uppercase">Kategori B</span>
+                        </div>
+                        <h3 class="fs-3 fw-bold text-primary-dark headline-font mb-2">Anorganik</h3>
+                        <p class="text-primary-muted small mb-4">Dapat didaur ulang menjadi produk fungsional.</p>
+                        <ul class="list-unstyled mb-0 small text-primary-dark fw-medium d-flex flex-column gap-2">
+                            <li><i class="fas fa-check-circle me-2"></i> Botol plastik & gelas bekas</li>
+                            <li><i class="fas fa-check-circle me-2"></i> Kertas, kardus & koran</li>
+                            <li><i class="fas fa-check-circle me-2"></i> Kaleng & logam</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 fade-up" style="animation-delay: 0.3s;">
+                    <div class="guide-preview-card border-b3 bg-b3-light h-100 position-relative overflow-hidden">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <i class="fas fa-exclamation-triangle fs-1 text-danger"></i>
+                            <span class="badge bg-danger rounded-pill tracking-wider text-uppercase">Kategori C</span>
+                        </div>
+                        <h3 class="fs-3 fw-bold text-danger-dark headline-font mb-2">Limbah B3</h3>
+                        <p class="text-danger-muted small mb-4">Berbahaya dan butuh penanganan khusus.</p>
+                        <ul class="list-unstyled mb-0 small text-danger-dark fw-medium d-flex flex-column gap-2">
+                            <li><i class="fas fa-exclamation-circle me-2"></i> Baterai & barang elektronik</li>
+                            <li><i class="fas fa-exclamation-circle me-2"></i> Lampu neon & bohlam</li>
+                            <li><i class="fas fa-exclamation-circle me-2"></i> Obat kadaluwarsa</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-5 position-relative overflow-hidden" style="background-color: #0a3d29;" id="dampak">
+            <div class="position-absolute top-0 end-0 rounded-circle" style="width: 400px; height: 400px; background: rgba(25, 135, 84, 0.2); filter: blur(100px); transform: translate(20%, -20%);"></div>
+            <div class="position-absolute bottom-0 start-0 rounded-circle" style="width: 400px; height: 400px; background: rgba(25, 135, 84, 0.15); filter: blur(100px); transform: translate(-20%, 20%);"></div>
+            
+            <div class="container-xl px-4 py-md-5 position-relative z-1 text-white fade-up">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <h2 class="display-5 fw-black headline-font mb-4">Dampak Kolektif Kita</h2>
+                        <p class="fs-5 mb-4 opacity-75 line-height-lg fw-medium text-success-light" id="stat-narrative">
+                            Memuat data jejak ekologis dari komunitas SimSam...
+                        </p>
+                        
+                        <div class="row g-4">
+                            <div class="col-6">
+                                <div class="p-4 rounded-4 border border-light border-opacity-10 bg-white bg-opacity-10 h-100">
+                                    <h3 class="display-5 fw-black text-success mb-1 stat-counter" id="stat-co2" data-target="0">0</h3>
+                                    <p class="small fw-bold text-uppercase tracking-wider opacity-75 mb-0">Kg CO2 Dicegah</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-4 rounded-4 border border-light border-opacity-10 bg-white bg-opacity-10 h-100">
+                                    <h3 class="display-5 fw-black text-success mb-1 stat-counter" id="stat-energy" data-target="0">0</h3>
+                                    <p class="small fw-bold text-uppercase tracking-wider opacity-75 mb-0">kWh Dihemat</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-4 rounded-4 border border-light border-opacity-10 bg-white bg-opacity-10 h-100">
+                                    <h3 class="display-5 fw-black text-success mb-1 stat-counter" id="stat-water" data-target="0">0</h3>
+                                    <p class="small fw-bold text-uppercase tracking-wider opacity-75 mb-0">Liter Air Diselamatkan</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-4 rounded-4 border border-light border-opacity-10 bg-white bg-opacity-10 h-100">
+                                    <h3 class="display-5 fw-black text-success mb-1 stat-counter" id="stat-money" data-target="0" data-is-currency="true">Rp 0</h3>
+                                    <p class="small fw-bold text-uppercase tracking-wider opacity-75 mb-0">Potensi Ekonomi</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-end">
+                            <small class="text-white-50 fst-italic" id="stat-users">Berdasarkan kalkulasi dari 0 pengguna aktif.</small>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-3 rounded-4" style="background-color: rgba(25, 135, 84, 0.2); transform: rotate(3deg);">
+                            <div class="rounded-4 overflow-hidden" style="transform: rotate(-3deg);">
+                                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=800&auto=format&fit=crop" class="w-100 object-fit-cover opacity-75" style="height: 450px;" alt="Impact">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+     <footer class="bg-white border-top py-5 mt-5">
+            <div class="text-center">
+                <span class="text-muted small">© 2026 SimSam Group 2. All rights reserved.</span>
+            </div>
+        </div>
     </footer>
 
-    <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>

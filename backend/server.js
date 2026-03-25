@@ -2,7 +2,7 @@ const http = require('http');
 // For deployment purposes!
 // const fs = require('fs');
 const path = require('path');
-const { calculateImpact, getWasteTypes }  = require('./features/wasteCalculator');
+const { calculateImpact }  = require('./features/wasteCalculator');
 const { fetchEnvironmentalNews }          = require('./features/newsService');
 const { accumulateStats, getStats }       = require('./features/impactStats');
 const { getBankSampah, getUniqueWilayah, getUniqueKecamatan } = require('./features/bankSampah');
@@ -71,6 +71,7 @@ const server = http.createServer(async (req, res) => {
         try {
             const body = await parseJSONBody(req);
             const result = await calculateImpact(body.items);
+            accumulateStats(result);
             return sendJSON(res, 200, { success: true, data: result });
         } catch (error) {
             console.error('[Server Error]', error.message);
@@ -79,7 +80,7 @@ const server = http.createServer(async (req, res) => {
             }
             return sendJSON(res, 502, { 
                 success: false, 
-                message: "Gemini AI Error", 
+                message: "API Error", 
                 detail: error.message 
             });
         }
@@ -88,7 +89,10 @@ const server = http.createServer(async (req, res) => {
         try {
             const news = await fetchEnvironmentalNews();
             return sendJSON(res, 200, { success: true, data: news });
-        } catch (e) { return sendJSON(res, 502, { success: false }); }
+        } catch (e) { 
+            console.error('[News API Error]', e.message);
+            return sendJSON(res, 502, { success: false, message: e.message }); 
+        }
     }
 
     else if (urlPath === '/api/edu' && req.method === 'GET') {
@@ -118,12 +122,21 @@ const server = http.createServer(async (req, res) => {
         }
         return sendJSON(res, 200, { success: true, data: results });
     }
+
+    else if (urlPath === '/api/stats' && req.method === 'GET') {
+        try {
+            const stats = getStats(); 
+            return sendJSON(res, 200, { success: true, data: stats });
+        } catch (e) {
+            console.error('[Stats API Error]', e.message);
+            return sendJSON(res, 502, { success: false, message: e.message });
+        }
+    }
     else {
         sendJSON(res, 404, { message: "Not Found" });
     }
 });
 
-// Deployment purpose (railway)
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
     console.log(`Running on port ${PORT}`);
